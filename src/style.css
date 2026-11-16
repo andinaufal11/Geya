@@ -83,3 +83,17 @@ button.text-link{background:transparent;border:0;padding:4px 0;text-align:left}
 @keyframes gentle-enter{from{opacity:.45;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:900px){.program-detail{grid-template-columns:1fr;padding:24px;gap:22px}.back-to-top{right:16px;bottom:16px}nav>a:after{right:auto;width:28px;bottom:-4px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+/* Native modal keeps keyboard focus inside and supports Escape. */
+.poster-trigger{display:inline-flex;align-items:center;gap:7px;background:transparent;border:0;padding:10px 0;min-height:44px;font-size:15px;color:var(--red);text-align:left}
+.poster-trigger:hover{text-decoration:underline;text-underline-offset:4px}
+.poster-dialog{position:fixed;inset:0;width:min(760px,calc(100% - 32px));max-width:none;max-height:90vh;max-height:90dvh;margin:auto;padding:0;border:1px solid #e7d6ce;background:#fffdfb;color:#292323;box-shadow:0 24px 90px #220a1940;overflow:auto;overscroll-behavior:contain}
+.poster-dialog[open]{animation:gentle-enter .2s ease both}
+.poster-dialog::backdrop{background:#211918b8;backdrop-filter:blur(4px)}
+.poster-toolbar{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;background:#fffdfbf5;border-bottom:1px solid #eee0dc;z-index:1}
+.poster-toolbar h2{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:550;letter-spacing:0;line-height:1.5;margin:0}
+.poster-close{display:grid;place-items:center;flex-shrink:0;width:44px;height:44px;padding:0;background:white;border:1px solid #e7d6ce;color:var(--red);transition:background .2s ease}
+.poster-close:hover{background:#fff1d7}
+.poster-image{padding:16px}
+.poster-image img{display:block;width:100%;height:auto}
+@media(max-width:600px){.poster-toolbar{padding:10px 12px}.poster-toolbar h2{font-size:16px}.poster-image{padding:8px}}
+@media(prefers-reduced-motion:reduce){.poster-dialog[open]{animation:none}}

@@ -1,4 +1,4 @@
-﻿export const contact = { whatsapp: '', address: '', mapUrl: '' };
+export const contact = { whatsapp: '62811547999', address: '', mapUrl: '' };
 export const programs = [
  {id:'kedinasan',name:'Sekolah Kedinasan',tag:'AKADEMIK & KESIAPAN DIRI',description:'Bangun dasar pengetahuan dan kebiasaan belajar untuk mempersiapkan seleksi sekolah kedinasan.',subjects:['Wawasan kebangsaan','Intelegensi umum','Karakteristik pribadi']},
  {id:'tni',name:'TNI',tag:'DISIPLIN & DAYA JUANG',description:'Persiapkan diri menuju pengabdian melalui belajar terarah dan pengembangan kemampuan diri.',subjects:['Persiapan akademik','Pengenalan psikotes','Persiapan kesamaptaan']},

@@ -145,33 +145,59 @@ button.text-link{background:transparent;border:0;padding:4px 0;text-align:left}
 .chat-form input{border-radius:6px}.chat-form button{border-radius:6px}
 .chat-suggestions{border-top:0;padding-bottom:12px}
 .chat-demo-note{background:#fffaf2;color:#897267}
-/* A quiet, useful end to the page. */
+/* Footer: constrained desktop width and a single reading column on phones. */
 footer.site-footer{display:block;width:100%;padding:0;background:#fcf8f3;border-top:1px solid #eadfd6;color:#493b35}
-.footer-main{display:grid;grid-template-columns:1.5fr .8fr 1fr;gap:64px;padding-top:56px;padding-bottom:46px}
-.site-footer .brand{width:auto;gap:12px}
-.site-footer .brand img{width:48px;height:48px}
-.site-footer .brand>span{font-size:17px;letter-spacing:.8px}
-.site-footer .brand small{font-size:10px;letter-spacing:1.1px;margin-top:5px}
-.footer-intro>p{font-size:16px;line-height:1.8;margin:20px 0 16px}
-.footer-motto{font-size:12px;color:#997825;letter-spacing:.5px}
-.footer-column h2{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;letter-spacing:0;line-height:1.6;margin:0 0 18px;color:#493b35}
-.footer-links{display:grid;gap:5px}
-.footer-links a{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:36px;font-size:14px;color:#79695f;max-width:195px}
-.footer-links a svg{opacity:0;transform:translate(-3px,3px);transition:opacity .2s,transform .2s}
+.site-footer>.wrap{width:calc(100% - 64px);max-width:1040px;min-width:0}
+.footer-main{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr) minmax(0,1fr);gap:40px;padding:40px 0 32px}
+.footer-main>div{min-width:0}
+.site-footer .brand{width:auto;gap:10px;max-width:100%}
+.site-footer .brand img{width:42px;height:42px;flex-shrink:0}
+.site-footer .brand>span{font-size:16px;letter-spacing:.5px;min-width:0;overflow-wrap:anywhere}
+.site-footer .brand small{font-size:10px;letter-spacing:.6px;line-height:1.6;margin-top:4px}
+.footer-intro>p{font-size:15px;line-height:1.8;margin:15px 0 0;max-width:290px}
+.footer-column h2{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;letter-spacing:0;line-height:1.6;margin:0 0 12px;color:#493b35}
+.footer-links{display:grid;gap:0}
+.footer-links a{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:40px;font-size:14px;color:#79695f;max-width:195px;overflow-wrap:anywhere}
+.footer-links a svg{opacity:0;transition:opacity .2s}
 .footer-links a:hover,.footer-links a:focus-visible{color:var(--red)}
-.footer-links a:hover svg,.footer-links a:focus-visible svg{opacity:1;transform:none}
-.footer-contact>p{display:flex;align-items:flex-start;gap:9px;font-size:14px;line-height:1.7;margin:0 0 15px}
+.footer-links a:hover svg,.footer-links a:focus-visible svg{opacity:1}
+.footer-contact>p{display:flex;align-items:flex-start;gap:8px;font-size:14px;line-height:1.7;margin:0 0 12px;overflow-wrap:anywhere}
 .footer-contact>p svg{margin-top:3px;color:#a57b16}
-.footer-whatsapp{display:flex;align-items:center;gap:10px;min-height:60px;padding:12px 0;color:var(--red);font-size:14px;border-top:1px solid #e8ddd3;border-bottom:1px solid #e8ddd3}
+.footer-contact>p span{min-width:0}
+.footer-whatsapp{display:flex;align-items:center;gap:10px;min-height:64px;padding:12px 14px;color:var(--red);font-size:14px;border:1px solid #e8ddd3;background:#fffdf9;border-radius:6px}
+.footer-whatsapp>span{min-width:0;overflow-wrap:anywhere;line-height:1.5}
 .footer-whatsapp>svg:last-child{margin-left:auto}
-.footer-whatsapp small{display:block;font-size:12px;color:#89776b;margin-top:3px}
-.footer-whatsapp:hover{color:#7b0f17}
-.footer-contact .footer-contact-note{font-size:13px;line-height:1.8;margin-top:14px}
-.footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:18px;padding-top:21px;padding-bottom:25px;border-top:1px solid #e8ddd3}
-.footer-bottom p{font-size:12px;margin:0;color:#8a786c}
+.footer-whatsapp small{display:block;font-size:13px;color:#89776b;margin-top:3px}
+.footer-whatsapp:hover{color:#7b0f17;background:white}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0 20px;border-top:1px solid #e8ddd3}
+.footer-bottom p{font-size:12px;line-height:1.7;margin:0;color:#8a786c}
 .footer-bottom>span{font-size:12px;color:#9a887b}
-.footer-bottom>a{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#7b6152;min-height:36px}
+.footer-bottom>a{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:#7b6152;min-height:40px;flex-shrink:0}
 .footer-bottom>a:hover{color:var(--red)}
-@media(max-width:900px){.footer-main{grid-template-columns:1.2fr 1fr;gap:36px}.footer-intro{grid-column:1/-1}.footer-intro>p br{display:none}.footer-bottom{flex-wrap:wrap;padding-right:100px}}
-@media(max-width:600px){.chat-panel{bottom:0;height:min(640px,calc(100dvh - 32px))}.chat-header{padding:12px 10px}.chat-avatar{width:34px;height:34px}.chat-header-admin{padding:4px}.chat-header b{margin-left:2px;font-size:9px}.chat-header strong{font-size:17px}.footer-main{grid-template-columns:1fr 1fr;gap:32px 24px;padding-top:38px;padding-bottom:32px}.site-footer .brand>span{font-size:16px}.footer-column h2{font-size:14px}.footer-links a{font-size:13px}.footer-links a svg{opacity:1}.footer-contact>p,.footer-whatsapp{font-size:13px}.footer-whatsapp{flex-wrap:wrap}.footer-whatsapp>svg:last-child{display:none}.footer-bottom{gap:8px 16px}.footer-bottom>span{display:none}}
-@media(max-width:360px){.footer-main{grid-template-columns:1fr}.footer-intro{grid-column:auto}.footer-links a{max-width:100%}.chat-avatar{display:none}.chat-header span{font-size:10px}}
+@media(max-width:900px){
+ .footer-main{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 36px;padding-top:32px}
+ .footer-intro{grid-column:1/-1}
+ .footer-intro>p{max-width:none}
+ .footer-bottom{flex-wrap:wrap}
+ .footer-bottom>span{display:none}
+}
+@media(max-width:600px){
+ .chat-panel{bottom:0;height:min(640px,calc(100dvh - 32px))}
+ .chat-header{padding:12px 10px}.chat-avatar{width:34px;height:34px}.chat-header-admin{padding:4px}.chat-header b{margin-left:2px;font-size:9px}.chat-header strong{font-size:17px}
+ .site-footer>.wrap{width:calc(100% - 40px)}
+ .footer-main{grid-template-columns:minmax(0,1fr);gap:24px;padding:28px 0 24px}
+ .footer-intro{grid-column:auto}
+ .site-footer .brand>span{font-size:16px}
+ .footer-intro>p{font-size:14px;margin-top:12px;max-width:310px}
+ .footer-column{padding-top:20px;border-top:1px solid #e8ddd3}
+ .footer-column h2{font-size:14px;margin-bottom:8px}
+ .footer-links{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:20px}
+ .footer-links a{font-size:14px;max-width:none;min-height:44px}
+ .footer-links a svg{opacity:.55}
+ .footer-contact>p{font-size:14px;margin-bottom:12px}
+ .footer-whatsapp{width:100%;min-height:66px;font-size:15px}
+ .footer-bottom{display:flex;align-items:flex-start;flex-direction:column;gap:2px;padding:14px 0 calc(94px + env(safe-area-inset-bottom,0px))}
+ .footer-bottom p{font-size:12px;max-width:100%;overflow-wrap:anywhere}
+ .footer-bottom>a{font-size:13px;min-height:44px}
+}
+@media(max-width:360px){.site-footer>.wrap{width:calc(100% - 32px)}.site-footer .brand>span{font-size:14px}.site-footer .brand small{font-size:9px}.footer-links{column-gap:14px}.chat-avatar{display:none}.chat-header span{font-size:10px}}

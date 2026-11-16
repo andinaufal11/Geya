@@ -37,3 +37,16 @@ Chat di `src/ChatDemo.jsx` adalah demo lokal tanpa API AI. Jawaban contoh di `sr
 ## Tema tampilan
 
 Switch ikon bulan/matahari di header mengubah mode terang dan gelap. Pada kunjungan pertama, tema mengikuti perangkat. Pilihan manual disimpan di localStorage dengan key geya-theme dan disinkronkan antar-tab. Hapus key tersebut untuk kembali mengikuti perangkat. Skrip public/theme-init.js menerapkan tema sebelum halaman tampil; src/theme.css mengatur palet kedua mode.
+
+## Automation testing
+
+- `npm test`: build produksi, 6 pemeriksaan SEO, lalu 42 browser tests (14 alur pada desktop 1440px, HP 390px, dan HP kecil 320px).
+- `npm run test:e2e`: ulangi tes browser terhadap build `dist` yang sudah dibuat.
+- `npx playwright show-report`: buka laporan HTML setelah tes.
+- Windows memakai Microsoft Edge yang terpasang. Linux/CI memakai Chromium; jalankan `npx playwright install --with-deps chromium` saat menyiapkan environment Linux.
+
+Suite mencakup navigasi, program, jadwal dan hari kosong, FAQ, popup dan fokus keyboard, demo chat, batas input, teks markup, carousel otomatis/manual, reduced motion, penyimpanan tema, sinkronisasi tab, perubahan tema perangkat, storage diblokir, layout kedua tema, dan tujuan tautan WhatsApp. Tes tidak mengirim pesan ke WhatsApp.
+
+Foto Pexels dan font eksternal diganti respons lokal saat tes interaksi agar hasil tidak tergantung jaringan pihak ketiga. Suite ini tidak mengukur kualitas visual foto, Core Web Vitals produksi, peringkat Google, atau kompatibilitas Safari/Firefox. Emulasi HP dijalankan di Chromium/Edge, bukan perangkat fisik. Jika tes gagal, screenshot dan trace disimpan di `test-results/`; hasil tersebut tidak masuk Git.
+
+Workflow `.github/workflows/test.yml` menjalankan suite setelah push ke main dan pada pull request, lalu menyimpan laporan HTML sebagai artifact GitHub Actions selama 14 hari.

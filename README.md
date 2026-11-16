@@ -1,29 +1,36 @@
-﻿# Geya Nawasena Nunukan
+# Geya Nawasena Nunukan
 
-Website company profile menggunakan React, Vite, CSS responsif, dan ikon Lucide.
+Website React + Vite untuk informasi bimbel persiapan Kedinasan, TNI, dan Polri. Domain aktif: https://geya.vercel.app/.
 
-## Menjalankan
+## Menjalankan dan deploy
 
 - `npm install`
-- `npm run dev`
-- `npm run build` untuk hasil produksi di folder `dist`.
+- `npm run dev` untuk pengembangan.
+- `npm run build` membuat HTML siap dibaca mesin pencari di `dist/`, kemudian interaksi React diaktifkan melalui hydration.
+- `npm run test:seo` memeriksa HTML hasil build, metadata, aset, data terstruktur, dan konsistensi sitemap.
+- `npm run preview` untuk meninjau hasil produksi.
+- Hosting memakai build command `npm run build` dan output directory `dist`. Jangan menggantinya dengan `vite build` langsung karena akan melewati prerender dan generator SEO.
 
-## Mengubah konten
+## Pengaturan SEO
 
-Edit `src/content.js` untuk program, materi, FAQ, alamat, nomor WhatsApp (format internasional tanpa +), serta URL Google Maps. Deskripsi dan materi saat ini merupakan draf yang perlu disetujui pengelola. Jadwal belum diisi karena data resmi belum tersedia. Komponen jadwal ada di `src/main.jsx`.
+Default domain produksi di `scripts/seo-config.mjs` sudah mengarah ke https://geya.vercel.app/. Jika memakai domain sendiri, atur environment variable `SITE_URL=https://domain-utama` di hosting dan build ulang. Lihat `.env.example`. Canonical, Open Graph, sitemap, robots.txt dan URL data terstruktur dibuat dari sumber yang sama. Hanya URL halaman utama dimasukkan sitemap; anchor seperti `#program` bukan halaman terpisah.
 
-Logo asli berada di `public/assets/logo.jpeg`. Foto kegiatan atau pengajar belum disertakan karena belum tersedia. Efek mix-blend-mode menyamarkan bidang putih logo secara visual; file logo asli belum dihapus background-nya.
+Judul dan deskripsi produksi dikelola di `scripts/seo-config.mjs` dan otomatis diterapkan saat build. `index.html` menyertakan nilai awal untuk mode pengembangan. Data terstruktur memakai EducationalOrganization, WebSite, dan WebPage. Alamat detail hanya ditambahkan jika `contact.address` sudah diisi. Tidak ada rating, harga, jam operasional atau jaminan kelulusan yang dibuat-buat. Jadwal kelas tidak diperlakukan sebagai jam buka kantor. Foto ilustrasi tidak diperlakukan sebagai dokumentasi bisnis.
 
-## Pengelolaan admin
+Setelah deploy:
 
-Untuk tahap awal, gunakan berkas konten agar sederhana. Belum ada login atau dashboard admin. Jika pembaruan rutin dilakukan staf nonteknis, langkah berikutnya adalah CMS dengan autentikasi dan penyimpanan backend (misalnya Supabase Auth + database dengan Row Level Security). URL tersembunyi saja bukan autentikasi. Jangan menaruh password atau kunci privat dalam source frontend. Perubahan localStorage juga tidak dapat menggantikan CMS karena tidak dibagikan ke pengunjung lain.
+1. Verifikasi kepemilikan domain di Google Search Console dan Bing Webmaster Tools melalui akun pemilik.
+2. Kirim URL `https://geya.vercel.app/sitemap.xml` (sesuaikan jika domain berubah).
+3. Periksa URL utama melalui URL Inspection, lalu ajukan pengindeksan jika diperlukan.
+4. Lengkapi Google Business Profile cabang Nunukan dengan data nyata dan konsisten.
+5. Jika mengganti domain, arahkan domain lama ke domain utama dengan redirect permanen di hosting.
 
-## Sebelum publikasi
+Verifikasi akun dan pengajuan pengindeksan tidak dilakukan oleh kode website. SEO tidak menjamin posisi pertama atau waktu pengindeksan. Halaman yang belum ada tidak ditambahkan ke sitemap. Tidak ada meta keywords atau schema FAQ untuk menjanjikan rich result.
 
-Lengkapi alamat, titik peta, WhatsApp, jadwal, biaya bila ingin ditampilkan, foto resmi dan deskripsi materi terverifikasi. Saat WhatsApp belum diisi, tombol konsultasi mengarahkan ke keterangan kontak yang belum tersedia. Tidak ada nomor, testimoni, hasil kelulusan atau jadwal fiktif.
+## Konten bisnis
 
-## Pembaruan jadwal AK8 dan galeri
+Edit `src/content.js` untuk program, FAQ, jadwal AK8, nomor WhatsApp format internasional, alamat, dan URL Maps. WhatsApp sudah diisi. Lengkapi alamat, lokasi Maps, biaya, alur pendaftaran dan rincian program dengan informasi resmi sebelum publikasi penuh. Jangan menaruh password atau API key di kode frontend.
 
-Jadwal dalam `src/content.js` kini mengikuti `assets/jadwal.jpeg`: Psiko Kamis 19.30 dan Sabtu 10.00; Matematika Senin/Rabu 19.30; Bahasa Inggris Minggu/Jumat 19.30; Samjas Senin/Rabu/Jumat 16.30. Deskripsi mata pelajaran adalah ringkasan editorial. Waktu ditampilkan dalam WITA untuk Nunukan. Poster asli dapat dibuka dari bagian jadwal.
+Logo: `public/assets/logo.jpeg`. Poster jadwal: `assets/jadwal.jpeg`, dibuka melalui popup. Foto dokumentasi bisa ditambahkan ke `assets/galeri/` dengan nama deskriptif. Jika belum ada, carousel memakai foto ilustrasi Indonesia dari URL di `src/galleryPhotos.js`, dengan label dan kredit sumber. Foto luar memerlukan koneksi ke penyedia gambar.
 
-Tambahkan foto kegiatan asli (JPG, JPEG, PNG, atau WEBP) ke `assets/galeri/`. Galeri otomatis membaca foto saat Vite berjalan atau saat build ulang. Logo dan poster jadwal dikecualikan. Gunakan nama file yang deskriptif, misalnya `latihan-bersama-nunukan.jpg`, karena digunakan sebagai teks alternatif. Dengan dua foto atau lebih, carousel berpindah setiap 4,5 detik. Tersedia tombol navigasi, indikator, dan jeda. Putar otomatis berhenti saat diarahkan mouse atau fokus keyboard dan mengikuti preferensi pengurangan gerak. Tanpa foto, bagian galeri menampilkan pemberitahuan singkat; satu foto ditampilkan tanpa kontrol putar.
+Chat di `src/ChatDemo.jsx` adalah demo lokal tanpa API AI. Jawaban contoh di `src/chatDemo.js` memakai informasi program dan jadwal yang sama; informasi yang belum tersedia diarahkan ke admin WhatsApp. Percakapan tidak disimpan ke server.

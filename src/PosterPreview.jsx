@@ -22,7 +22,7 @@ export default function PosterPreview(){
   <button className="poster-trigger" aria-haspopup="dialog" aria-controls="schedule-poster" onClick={()=>setOpen(true)}>Lihat poster asli <ArrowUpRight size={16}/></button>
   <dialog className="poster-dialog" id="schedule-poster" ref={dialogRef} aria-labelledby="poster-title" onClose={()=>setOpen(false)} onClick={closeBackdrop}>
    <div className="poster-toolbar"><h2 id="poster-title">Poster jadwal kelas AK8</h2><button className="poster-close" aria-label="Tutup poster" onClick={close} autoFocus><X size={22}/></button></div>
-   <div className="poster-image"><img src={schedulePoster} alt="Poster asli jadwal bimbingan kelas AK8 Geya Nawasena Nunukan"/></div>
+   <div className="poster-image"><img loading="lazy" decoding="async" src={schedulePoster} alt="Poster asli jadwal bimbingan kelas AK8 Geya Nawasena Nunukan"/></div>
   </dialog>
  </>;
 }

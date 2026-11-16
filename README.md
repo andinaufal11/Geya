@@ -34,3 +34,6 @@ Edit `src/content.js` untuk program, FAQ, jadwal AK8, nomor WhatsApp format inte
 Logo: `public/assets/logo.jpeg`. Poster jadwal: `assets/jadwal.jpeg`, dibuka melalui popup. Foto dokumentasi bisa ditambahkan ke `assets/galeri/` dengan nama deskriptif. Jika belum ada, carousel memakai foto ilustrasi Indonesia dari URL di `src/galleryPhotos.js`, dengan label dan kredit sumber. Foto luar memerlukan koneksi ke penyedia gambar.
 
 Chat di `src/ChatDemo.jsx` adalah demo lokal tanpa API AI. Jawaban contoh di `src/chatDemo.js` memakai informasi program dan jadwal yang sama; informasi yang belum tersedia diarahkan ke admin WhatsApp. Percakapan tidak disimpan ke server.
+## Tema tampilan
+
+Switch ikon bulan/matahari di header mengubah mode terang dan gelap. Pada kunjungan pertama, tema mengikuti perangkat. Pilihan manual disimpan di localStorage dengan key geya-theme dan disinkronkan antar-tab. Hapus key tersebut untuk kembali mengikuti perangkat. Skrip public/theme-init.js menerapkan tema sebelum halaman tampil; src/theme.css mengatur palet kedua mode.

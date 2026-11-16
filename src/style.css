@@ -201,3 +201,21 @@ footer.site-footer{display:block;width:100%;padding:0;background:#fcf8f3;border-
  .footer-bottom>a{font-size:13px;min-height:44px}
 }
 @media(max-width:360px){.site-footer>.wrap{width:calc(100% - 32px)}.site-footer .brand>span{font-size:14px}.site-footer .brand small{font-size:9px}.footer-links{column-gap:14px}.chat-avatar{display:none}.chat-header span{font-size:10px}}
+/* Editorial gallery: separate image and copy, with visual navigation. */
+.photo-slide>.slide-photo{width:100%;height:100%;min-width:0;min-height:0}
+.pitch-slide{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);height:470px;background:#fffdf8;border:1px solid #ead8cb}
+.pitch-slide::after{display:none}.pitch-slide .slide-photo{position:relative;overflow:hidden}.pitch-slide .slide-photo img{object-fit:cover}
+.photo-illustration-label{position:absolute;top:18px;left:18px;padding:5px 8px;background:#ffffffdf;color:#675344;font-size:10px;letter-spacing:1px}
+.pitch-slide .slide-caption{position:static;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:36px;color:#352820;min-width:0}
+.pitch-slide .slide-label{font-size:11px;color:#9b782a;letter-spacing:1.1px;padding:0;border:0;background:none}
+.pitch-slide .slide-caption h3{font-size:43px;line-height:1.12;margin:24px 0 16px;max-width:340px}
+.pitch-slide .slide-caption p{font-size:16px;color:#857264;line-height:1.8;max-width:320px}
+.slide-signature{display:block;width:100%;margin-top:34px;padding-top:20px;border-top:1px solid #e7dac9;font-size:11px;letter-spacing:1px;color:var(--red)}.slide-signature>span{float:right;font-size:12px;letter-spacing:0;color:#9c8675}
+.carousel-controls:has(.carousel-thumbnails){display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:24px;align-items:start}
+.carousel-thumbnails{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.carousel-thumbnails button{display:flex;flex-direction:column;gap:7px;min-width:0;text-align:left;padding:4px;border:1px solid transparent;background:transparent;color:#8e796d}
+.carousel-thumbnails button img{width:100%;height:62px;object-fit:cover;opacity:.6;transition:opacity .2s}.carousel-thumbnails button span{font-size:11px;line-height:1.5}
+.carousel-thumbnails button.active{border-color:#b49242;background:#fffdf8;color:var(--red)}.carousel-thumbnails button.active img,.carousel-thumbnails button:hover img{opacity:1}
+@media(max-width:900px){.pitch-slide{height:420px}.pitch-slide .slide-caption{padding:26px}.pitch-slide .slide-caption h3{font-size:36px}.carousel-controls:has(.carousel-thumbnails){gap:16px}.carousel-thumbnails button span{font-size:10px}}
+@media(max-width:600px){.pitch-slide{height:530px;grid-template-columns:minmax(0,1fr);grid-template-rows:275px minmax(0,1fr)}.pitch-slide .slide-caption{padding:22px;justify-content:flex-start}.pitch-slide .slide-caption h3{font-size:31px;margin:12px 0 9px;max-width:100%}.pitch-slide .slide-caption p{font-size:14px;line-height:1.7;max-width:100%}.slide-signature{margin-top:auto;padding-top:10px;font-size:10px}.carousel-controls:has(.carousel-thumbnails){grid-template-columns:1fr auto;gap:16px}.carousel-thumbnails{grid-row:2;grid-column:1/-1;gap:7px}.carousel-thumbnails button{gap:5px;padding:3px}.carousel-thumbnails button img{height:54px}.carousel-thumbnails button span{font-size:10px;line-height:1.5}.photo-illustration-label{top:14px;left:14px}}
+@media(max-width:360px){.pitch-slide{height:550px;grid-template-rows:270px minmax(0,1fr)}.pitch-slide .slide-caption{padding:18px}.pitch-slide .slide-caption h3{font-size:29px}}

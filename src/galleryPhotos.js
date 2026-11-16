@@ -1,0 +1,6 @@
+// Remote illustration photos for pitching; local gallery photos take priority.
+export const pitchPhotos = [
+ {src:'https://images.pexels.com/photos/5306450/pexels-photo-5306450.jpeg?auto=compress&cs=tinysrgb&w=1600',alt:'Ilustrasi siswa berdiskusi dan belajar bersama',title:'Belajar lebih terarah.',caption:'Bangun pemahaman, satu materi setiap hari.',credit:'Antoni Shkraba / Pexels',href:'https://www.pexels.com/photo/students-doing-their-classwork-together-5306450/',illustration:true},
+ {src:'https://images.pexels.com/photos/5940827/pexels-photo-5940827.jpeg?auto=compress&cs=tinysrgb&w=1600',alt:'Ilustrasi diskusi belajar bersama pengajar',title:'Bertanya. Memahami. Berkembang.',caption:'Semangat belajar tumbuh bersama teman dan pembimbing.',credit:'Kampus Production / Pexels',href:'https://www.pexels.com/photo/multiethnic-students-doing-research-together-in-library-5940827/',illustration:true},
+ {src:'https://images.pexels.com/photos/2530124/pexels-photo-2530124.jpeg?auto=compress&cs=tinysrgb&w=1600',alt:'Ilustrasi sekelompok pelari berlatih bersama di luar ruangan',title:'Latih tekad, kuatkan langkah.',caption:'Disiplin dan kebugaran dimulai dari kebiasaan kecil.',credit:'RUN 4 FFWPU / Pexels',href:'https://www.pexels.com/photo/photo-of-people-jogging-on-road-2530124/',illustration:true}
+];

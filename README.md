@@ -40,7 +40,7 @@ Switch ikon bulan/matahari di header mengubah mode terang dan gelap. Pada kunjun
 
 ## Automation testing
 
-- `npm test`: build produksi, 6 pemeriksaan SEO, lalu 42 browser tests (14 alur pada desktop 1440px, HP 390px, dan HP kecil 320px).
+- `npm test`: build produksi, 6 pemeriksaan SEO, lalu 45 browser tests (15 alur pada desktop 1440px, HP 390px, dan HP kecil 320px).
 - `npm run test:e2e`: ulangi tes browser terhadap build `dist` yang sudah dibuat.
 - `npx playwright show-report`: buka laporan HTML setelah tes.
 - Windows memakai Microsoft Edge yang terpasang. Linux/CI memakai Chromium; jalankan `npx playwright install --with-deps chromium` saat menyiapkan environment Linux.

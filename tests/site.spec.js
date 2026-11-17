@@ -17,9 +17,9 @@ test('navigation and menu reach the correct section',async({page})=>{
 });
 test('program details open, switch and close',async({page})=>{
  await goto(page);const cards=page.locator('.program-card');await cards.nth(0).getByRole('button').click();
- await expect(page.locator('#program-detail')).toContainText('Persiapan Sekolah Kedinasan');
- await cards.nth(1).getByRole('button').click();await expect(page.locator('#program-detail')).toContainText('Persiapan TNI');
- await cards.nth(1).getByRole('button').click();await expect(page.locator('#program-detail')).toBeEmpty();
+ await expect(page.locator('.program-detail-slot:not([hidden])')).toContainText('Persiapan Sekolah Kedinasan');
+ await cards.nth(1).getByRole('button').click();await expect(page.locator('.program-detail-slot:not([hidden])')).toContainText('Persiapan TNI');
+ await cards.nth(1).getByRole('button').click();await expect(page.locator('.program-detail-slot:not([hidden])')).toHaveCount(0);
 });
 test('schedule filters show correct sessions and empty day',async({page})=>{
  await goto(page);await expect(page.locator('.subject-card')).toHaveCount(4);
@@ -92,4 +92,27 @@ test('footer, gallery and open chat fit viewport in both themes',async({page})=>
 });
 test('footer and main contact point to the configured WhatsApp',async({page})=>{
  await goto(page);const links=page.locator('a[href^="https://wa.me/"]');expect(await links.count()).toBeGreaterThanOrEqual(2);for(const link of await links.all())await expect(link).toHaveAttribute('href',/^https:\/\/wa.me\/62811547999\?/);
+});
+test('program details appear directly below chosen card on phones and below the row on desktop',async({page})=>{
+ await goto(page);
+ for(const theme of ['light','dark']){
+  if(theme==='dark')await page.getByRole('switch',{name:'Mode gelap'}).click();
+  for(let index=0;index<3;index++){
+   const card=page.locator('.program-card').nth(index);const trigger=card.getByRole('button');
+   await trigger.click();const panel=page.locator('#'+await trigger.getAttribute('aria-controls'));
+   await expect(panel).toBeVisible();await expect(page.locator('.program-detail-slot:not([hidden])')).toHaveCount(1);
+   const placement=await page.evaluate(index=>{
+    const cards=[...document.querySelectorAll('.program-card')],card=cards[index],r=card.getBoundingClientRect(),panel=card.nextElementSibling,p=panel.getBoundingClientRect();
+    return {viewport:innerWidth,gap:p.top-r.bottom,rowBottom:Math.max(...cards.map(c=>c.getBoundingClientRect().bottom)),panelTop:p.top,nextTop:cards[index+1]?.getBoundingClientRect().top,panelBottom:p.bottom};
+   },index);
+   if(placement.viewport<=900){expect(placement.gap).toBeGreaterThanOrEqual(0);expect(placement.gap).toBeLessThanOrEqual(24);if(placement.nextTop!==undefined)expect(placement.nextTop).toBeGreaterThanOrEqual(placement.panelBottom);}
+   else expect(placement.panelTop).toBeGreaterThanOrEqual(placement.rowBottom);
+   await trigger.focus();await page.keyboard.press('Tab');await expect(panel.getByRole('button',{name:'Lihat jadwal kelas'})).toBeFocused();
+   await trigger.click();await expect(panel).toBeHidden();
+  }
+ }
+ await page.locator('.program-card').first().getByRole('button').click();
+ await page.setViewportSize({width:768,height:900});
+ await expect(page.locator('.program-detail-slot:not([hidden])')).toBeVisible();
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });

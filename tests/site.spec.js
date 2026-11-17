@@ -116,15 +116,18 @@ test('program details appear directly below chosen card on phones and below the 
  await expect(page.locator('.program-detail-slot:not([hidden])')).toBeVisible();
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
-test('desktop gutters are balanced without excess laptop whitespace',async({page})=>{
+test('program detail actions align to the right panel padding',async({page})=>{
  await goto(page);
  const widths=page.viewportSize().width>900?[1024,1280,1366,1440,1920]:[page.viewportSize().width];
+ await page.locator('.program-card').nth(1).getByRole('button').click();
  for(const width of widths){
   await page.setViewportSize({width,height:900});
-  const spacing=await page.locator('.hero.wrap').evaluate(element=>{const r=element.getBoundingClientRect();return {left:r.left,right:innerWidth-r.right,width:r.width,page:document.documentElement.scrollWidth,viewport:innerWidth};});
-  expect(Math.abs(spacing.left-spacing.right)).toBeLessThanOrEqual(1);
-  expect(spacing.page).toBeLessThanOrEqual(width);
-  if(width>900&&width<=1440){expect(spacing.left).toBeGreaterThanOrEqual(31);expect(spacing.right).toBeLessThanOrEqual(40);}
-  if(width<=900)expect(spacing.left).toBe(width<=380?16:20);
+  const layout=await page.locator('.program-detail-slot:not([hidden]) .program-detail').evaluate(panel=>{
+   const r=panel.getBoundingClientRect(),copy=panel.firstElementChild.getBoundingClientRect(),actions=panel.querySelector('.detail-actions').getBoundingClientRect();
+   const style=getComputedStyle(panel);return {left:copy.left-r.left-parseFloat(style.borderLeftWidth),right:r.right-actions.right-parseFloat(style.borderRightWidth),actionsWidth:actions.width,panelWidth:r.width,overflow:document.documentElement.scrollWidth>innerWidth};
+  });
+  expect(layout.overflow).toBe(false);
+  expect(Math.abs(layout.left-layout.right)).toBeLessThanOrEqual(1);
+  if(width>900){expect(layout.right).toBeLessThanOrEqual(32);expect(layout.actionsWidth).toBeLessThan(layout.panelWidth*.4);}
  }
 });

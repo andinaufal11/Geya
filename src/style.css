@@ -230,8 +230,11 @@ footer.site-footer{display:block;width:100%;padding:0;background:#fcf8f3;border-
  .program-detail-slot .detail-actions .button{width:100%}
  .program-card:hover{transform:none}
 }
-/* Use laptop space more evenly while preserving phone spacing. */
+/* Fit desktop actions to their contents, leaving equal padding at both panel edges. */
 @media(min-width:901px){
- main .wrap{max-width:1360px;width:calc(100% - 64px)}
- header{padding-left:max(32px,calc((100vw - 1360px)/2));padding-right:max(32px,calc((100vw - 1360px)/2))}
+ .program-detail-slot .program-detail{grid-template-columns:minmax(0,1fr) auto;gap:40px;padding:30px}
+ .program-detail-slot .detail-actions{justify-self:end;align-items:stretch;min-width:230px;max-width:100%}
+ .program-detail-slot .detail-actions .button{width:100%}
+ .program-detail-slot .detail-actions .text-link{justify-content:space-between}
+ .program-detail-slot .program-detail p{max-width:78ch}
 }

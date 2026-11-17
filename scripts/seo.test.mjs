@@ -27,7 +27,7 @@ test('structured data uses real business information',()=>{
  const json=JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
  const organization=json['@graph'].find(item=>item['@type']==='EducationalOrganization');
  assert.equal(organization.telephone,'+'+contact.whatsapp);assert.equal(organization.url,origin);
- assert.equal(organization.name,seo.name);assert.equal(organization.aggregateRating,undefined);
+ assert.equal(organization.name,seo.name);assert.deepEqual(organization.sameAs,[contact.instagram]);assert.equal(organization.aggregateRating,undefined);
  if(!contact.address)assert.equal(organization.address,undefined);
  assert.equal(json['@graph'].length,3);
 });

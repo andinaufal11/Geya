@@ -91,7 +91,7 @@ test('footer, gallery and open chat fit viewport in both themes',async({page})=>
  }
 });
 test('footer and main contact point to the configured WhatsApp',async({page})=>{
- await goto(page);const links=page.locator('a[href^="https://wa.me/"]');expect(await links.count()).toBeGreaterThanOrEqual(2);for(const link of await links.all())await expect(link).toHaveAttribute('href',/^https:\/\/wa.me\/62811547999\?/);
+ await goto(page);const instagram=page.getByRole('link',{name:/Ikuti Instagram kami/});await expect(instagram).toHaveAttribute('href','https://www.instagram.com/bimbel_geya_nawasena/');await expect(instagram).toHaveAttribute('target','_blank');const links=page.locator('a[href^="https://wa.me/"]');expect(await links.count()).toBeGreaterThanOrEqual(2);for(const link of await links.all())await expect(link).toHaveAttribute('href',/^https:\/\/wa.me\/62811547999\?/);
 });
 test('program details appear directly below chosen card on phones and below the row on desktop',async({page})=>{
  await goto(page);

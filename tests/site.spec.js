@@ -131,3 +131,13 @@ test('program detail actions align to the right panel padding',async({page})=>{
   if(width>900){expect(layout.right).toBeLessThanOrEqual(32);expect(layout.actionsWidth).toBeLessThan(layout.panelWidth*.4);}
  }
 });
+test('explicit carousel Play works with pointer and keyboard focus on the control',async({page})=>{
+ await page.clock.install();await goto(page);
+ const play=page.getByRole('button',{name:'Putar otomatis',exact:true});
+ await play.click();await expect(page.getByRole('button',{name:'Jeda putar otomatis'})).toBeFocused();
+ await page.clock.fastForward(4600);await expect(page.locator('.photo-counter')).toContainText('02');
+ await page.getByRole('button',{name:'Jeda putar otomatis'}).click();await page.clock.fastForward(9000);await expect(page.locator('.photo-counter')).toContainText('02');
+ await play.click();await page.clock.fastForward(4600);await expect(page.locator('.photo-counter')).toContainText('03');
+ await page.locator('.carousel-viewport').hover();await page.clock.fastForward(9000);await expect(page.locator('.photo-counter')).toContainText('03');
+ await page.mouse.move(0,0);await page.clock.fastForward(4600);await expect(page.locator('.photo-counter')).toContainText('04');
+});

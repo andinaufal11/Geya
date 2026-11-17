@@ -40,7 +40,7 @@ Switch ikon bulan/matahari di header mengubah mode terang dan gelap. Pada kunjun
 
 ## Automation testing
 
-- `npm test`: build produksi, 6 pemeriksaan SEO, lalu 48 browser tests (16 alur pada desktop 1440px, HP 390px, dan HP kecil 320px).
+- `npm test`: build produksi, 6 pemeriksaan SEO, lalu 51 browser tests (17 alur pada desktop 1440px, HP 390px, dan HP kecil 320px).
 - `npm run test:e2e`: ulangi tes browser terhadap build `dist` yang sudah dibuat.
 - `npx playwright show-report`: buka laporan HTML setelah tes.
 - Windows memakai Microsoft Edge yang terpasang. Linux/CI memakai Chromium; jalankan `npx playwright install --with-deps chromium` saat menyiapkan environment Linux.
@@ -50,3 +50,4 @@ Suite mencakup navigasi, program, jadwal dan hari kosong, FAQ, popup dan fokus k
 Foto Pexels dan font eksternal diganti respons lokal saat tes interaksi agar hasil tidak tergantung jaringan pihak ketiga. Suite ini tidak mengukur kualitas visual foto, Core Web Vitals produksi, peringkat Google, atau kompatibilitas Safari/Firefox. Emulasi HP dijalankan di Chromium/Edge, bukan perangkat fisik. Jika tes gagal, screenshot dan trace disimpan di `test-results/`; hasil tersebut tidak masuk Git.
 
 Workflow `.github/workflows/test.yml` menjalankan suite setelah push ke main dan pada pull request, lalu menyimpan laporan HTML sebagai artifact GitHub Actions selama 14 hari.
+Autoplay carousel memakai interval 4,5 detik. Kursor pada area foto dan fokus pada kontrol lain menjeda sementara. Klik Play melanjutkan putaran meskipun fokus tetap di tombol Play. Reduced motion menonaktifkan autoplay awal; pengguna tetap dapat menyalakannya secara manual.

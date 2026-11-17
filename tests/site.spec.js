@@ -116,3 +116,15 @@ test('program details appear directly below chosen card on phones and below the 
  await expect(page.locator('.program-detail-slot:not([hidden])')).toBeVisible();
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
+test('desktop gutters are balanced without excess laptop whitespace',async({page})=>{
+ await goto(page);
+ const widths=page.viewportSize().width>900?[1024,1280,1366,1440,1920]:[page.viewportSize().width];
+ for(const width of widths){
+  await page.setViewportSize({width,height:900});
+  const spacing=await page.locator('.hero.wrap').evaluate(element=>{const r=element.getBoundingClientRect();return {left:r.left,right:innerWidth-r.right,width:r.width,page:document.documentElement.scrollWidth,viewport:innerWidth};});
+  expect(Math.abs(spacing.left-spacing.right)).toBeLessThanOrEqual(1);
+  expect(spacing.page).toBeLessThanOrEqual(width);
+  if(width>900&&width<=1440){expect(spacing.left).toBeGreaterThanOrEqual(31);expect(spacing.right).toBeLessThanOrEqual(40);}
+  if(width<=900)expect(spacing.left).toBe(width<=380?16:20);
+ }
+});

@@ -230,3 +230,8 @@ footer.site-footer{display:block;width:100%;padding:0;background:#fcf8f3;border-
  .program-detail-slot .detail-actions .button{width:100%}
  .program-card:hover{transform:none}
 }
+/* Use laptop space more evenly while preserving phone spacing. */
+@media(min-width:901px){
+ main .wrap{max-width:1360px;width:calc(100% - 64px)}
+ header{padding-left:max(32px,calc((100vw - 1360px)/2));padding-right:max(32px,calc((100vw - 1360px)/2))}
+}

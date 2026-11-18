@@ -15,6 +15,6 @@ export async function classifyWithGemini({message,history=[],env,fetchImpl=fetch
  const body=await response.json();const candidate=body.candidates?.[0];
  if(candidate?.finishReason!=='STOP')throw new Error('incomplete_provider_response');
  const text=candidate.content?.parts?.filter(p=>!p.thought).map(p=>p.text||'').join('');
- const selection=JSON.parse(text);if(!validSelection(selection))throw new Error('invalid_selection');
+ let selection;try{selection=JSON.parse(text);}catch{throw new Error('invalid_provider_json');}if(!validSelection(selection))throw new Error('invalid_selection');
  return selection;
 }

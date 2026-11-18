@@ -25,13 +25,15 @@ export function createChatHandler({env=process.env,fetchImpl=fetch,limiter,now,l
   const message=body.message.trim(),history=(body.history||[]).map(x=>x.trim()).filter(Boolean);
   const fallback=reason=>send(200,{reply:getDemoReply(message),source:'faq',reason});
   if(!aiConfigured(env))return fallback('unavailable');
+  let stage='limiter';
   try{
-   const ip=env.VERCEL?(req.headers['x-vercel-forwarded-for']||req.headers['x-forwarded-for']||'unknown').split(',')[0].trim():(req.socket?.remoteAddress||'local');
+   const ip=env.VERCEL?String(req.headers['x-vercel-forwarded-for']||req.headers['x-forwarded-for']||'unknown').split(',')[0].trim():(req.socket?.remoteAddress||'local');
    if(!await consume(ip)){res.setHeader('Retry-After','600');return fallback('limit');}
+   stage='gemini';
    const selection=await classifyWithGemini({message,history,env,fetchImpl});return send(200,{reply:renderReply(selection),source:'ai'});
   }catch(error){
-   const known=['limiter_unavailable','limiter_response','limiter_permission','limiter_unsupported_command','invalid_limiter_url','invalid_selection','invalid_model','incomplete_provider_response'];
-   const code=known.includes(error.message)||/^provider_\d{3}$/.test(error.message)?error.message:['AbortError','TimeoutError'].includes(error.name)?'timeout':'unexpected_error';
+   const known=['limiter_unavailable','limiter_response','limiter_permission','limiter_unsupported_command','invalid_limiter_url','invalid_limiter_token','invalid_provider_json','invalid_selection','invalid_model','incomplete_provider_response'];
+   const code=known.includes(error.message)||/^provider_\d{3}$/.test(error.message)?error.message:['AbortError','TimeoutError'].includes(error.name)?'timeout':stage+'_unexpected_error';
    try{logError(code);}catch{}return fallback('unavailable');
   }
  };

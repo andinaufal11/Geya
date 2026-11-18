@@ -15,7 +15,7 @@ export function createLimiter({env,fetchImpl=fetch,now=Date.now}){
   const maxIp=bounded(env.CHAT_REQUESTS_PER_10_MIN,10,30),maxDay=bounded(env.CHAT_DAILY_LIMIT,100,1000);
   const identity=createHmac('sha256',env.CHAT_RATE_LIMIT_SALT||env.GEMINI_API_KEY||'local-development').update(ip||'unknown').digest('hex');
   if(hasSharedLimiter(env)){
-   const url=new URL(env.UPSTASH_REDIS_REST_URL);if(url.protocol!=='https:'||url.username||url.password)throw new Error('invalid_limiter_url');
+   let url;try{url=new URL(env.UPSTASH_REDIS_REST_URL.trim());}catch{throw new Error('invalid_limiter_url');}if(/[\r\n]/.test(env.UPSTASH_REDIS_REST_TOKEN))throw new Error('invalid_limiter_token');if(url.protocol!=='https:'||url.username||url.password)throw new Error('invalid_limiter_url');
    const ttlDay=Math.ceil((Date.parse(date+'T00:00:00Z')+86400000-time)/1000)+60;
    const response=await fetchImpl(url.href,{method:'POST',headers:{Authorization:'Bearer '+env.UPSTASH_REDIS_REST_TOKEN,'content-type':'application/json'},signal:AbortSignal.timeout(4000),body:JSON.stringify(['EVAL',script,'2',`geya:{chat}:ip:${window}:${identity}`,`geya:{chat}:day:${date}`,String(maxIp),String(maxDay),'660',String(ttlDay)])});
    if(!response.ok)throw new Error('limiter_unavailable');const body=await response.json();if(body.error){if(/NOPERM|no permission|read.only/i.test(body.error))throw new Error('limiter_permission');if(/unknown command|not supported|unsupported/i.test(body.error))throw new Error('limiter_unsupported_command');throw new Error('limiter_response');}if(![0,1].includes(body.result))throw new Error('limiter_response');return body.result===1;

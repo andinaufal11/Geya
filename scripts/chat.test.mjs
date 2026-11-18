@@ -101,5 +101,5 @@ test('server credentials and provider endpoint are absent from the public bundle
 });
 test('operational diagnostics log only fixed error codes and never provider secrets',async()=>{
  const logs=[];const handler=createChatHandler({env:enabled,limiter:async()=>{throw new Error('sensitive credential: never print this');},logError:code=>logs.push(code)});
- const response=await invoke(handler);assert.equal(response.body.source,'faq');assert.deepEqual(logs,['unexpected_error']);
+ const response=await invoke(handler);assert.equal(response.body.source,'faq');assert.deepEqual(logs,['limiter_unexpected_error']);
 });

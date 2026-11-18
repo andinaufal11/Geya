@@ -40,7 +40,7 @@ Switch ikon bulan/matahari di header mengubah mode terang dan gelap. Pada kunjun
 
 ## Automation testing
 
-- `npm test`: build produksi, 6 pemeriksaan SEO, 18 pemeriksaan backend, lalu 63 browser tests (21 alur pada desktop 1440px, HP 390px, dan HP kecil 320px).
+- `npm test`: build produksi, 6 pemeriksaan SEO, 19 pemeriksaan backend, lalu 63 browser tests (21 alur pada desktop 1440px, HP 390px, dan HP kecil 320px).
 - `npm run test:e2e`: ulangi tes browser terhadap build `dist` yang sudah dibuat.
 - `npx playwright show-report`: buka laporan HTML setelah tes.
 - Windows memakai Microsoft Edge yang terpasang. Linux/CI memakai Chromium; jalankan `npx playwright install --with-deps chromium` saat menyiapkan environment Linux.
@@ -80,3 +80,4 @@ Program, jadwal, cabang dan FAQ berasal dari `src/content.js`. Instruksi dan pen
 Backend mengirim pertanyaan dan maksimal enam pertanyaan pengguna sebelumnya (masing-masing 300 karakter) ke Gemini. Pesan asisten dari browser tidak dipakai sebagai fakta resmi. Percakapan tidak disimpan aplikasi, dan kode tidak mencatat isi pesan atau kredensial. Google dapat memproses/menyimpan data menurut ketentuan paketnya. Penghitung Redis menggunakan identifier IP yang di-HMAC, bukan IP mentah, dengan masa berlaku terbatas. Data provider tetap tunduk pada ketentuan layanan masing-masing.
 
 Tes backend memakai respons Gemini/Redis tiruan; tes UI memakai backend FAQ lokal atau respons AI tiruan. Tanpa kredensial, tes tidak membuktikan akses model, kuota akun, maupun koneksi Redis produksi. Setelah memasang environment, lakukan smoke test live. Hasil HTTP gagal, kuota penuh, JSON model tidak valid, atau timeout beralih ke informasi dasar dan admin. API key dan endpoint provider diperiksa agar tidak masuk bundle publik.
+Log server chat hanya mencatat kategori error tetap (contoh invalid_limiter_url, limiter_permission, provider_429) tanpa nilai kredensial atau isi pesan. Jika invalid_limiter_url, isi UPSTASH_REDIS_REST_URL dengan nilai HTTPS pada bagian REST API database Upstash, lalu redeploy. Secret Production tidak dapat ditarik melalui CLI; pembaruan nilainya dilakukan oleh pemilik akun.

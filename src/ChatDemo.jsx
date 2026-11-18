@@ -6,7 +6,7 @@ const greeting={role:'assistant',source:'faq',text:'Halo! Aku asisten informasi 
 export default function ChatDemo(){
  const [open,setOpen]=useState(false),[input,setInput]=useState(''),[messages,setMessages]=useState([greeting]),[pending,setPending]=useState(false),[mode,setMode]=useState('faq'),[notice,setNotice]=useState('');
  const inputRef=useRef(null),logRef=useRef(null),triggerRef=useRef(null),pendingRef=useRef(false),requestRef=useRef(null);
- const whatsapp=`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent('Halo Geya Nawasena Nunukan, saya ingin konsultasi tentang program bimbel.')}`;
+ const whatsapp=`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent('Halo Geya Nawasena, saya ingin konsultasi tentang program bimbel.')}`;
  function close(){setOpen(false);requestAnimationFrame(()=>triggerRef.current?.focus());}
  useEffect(()=>{
   if(!open)return;inputRef.current?.focus();const controller=new AbortController();

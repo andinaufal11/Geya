@@ -5,9 +5,9 @@ export const programs = [
  {id:'polri',name:'Polri',tag:'SIAP MELAYANI',description:'Mulai perjalanan menuju seleksi Polri dengan memperkuat pengetahuan dan kesiapan diri.',subjects:['Pengetahuan umum','Penalaran & numerasi','Persiapan kesamaptaan']}
 ];
 export const faqs = [
- ['Apakah website ini khusus cabang Nunukan?','Ya. Informasi di website ini berfokus pada Geya Nawasena cabang Nunukan. Geya juga memiliki cabang di Tarakan dan Tanjung Selor.'],
- ['Program persiapan apa saja yang tersedia?','Website ini memperkenalkan persiapan Sekolah Kedinasan, TNI, dan Polri. Ketersediaan kelas dan rincian materi perlu dikonfirmasi kepada pengelola cabang Nunukan.'],
- ['Bagaimana cara mengetahui jadwal dan biaya?','Jadwal kelas AK8 tersedia pada bagian Jadwal di website ini. Untuk biaya, kuota, dan perubahan jadwal, silakan konfirmasi kepada pengelola cabang Nunukan.'],
+ ['Geya Nawasena hadir di kota mana saja?','Geya Nawasena hadir di Tarakan, Nunukan, dan Tanjung Selor. Website ini menyediakan informasi seluruh cabang. Pilih cabang di bagian Lokasi, lalu konfirmasikan program, jadwal, dan alamat kepada admin cabang tujuanmu.'],
+ ['Program persiapan apa saja yang tersedia?','Website ini memperkenalkan persiapan Sekolah Kedinasan, TNI, dan Polri. Ketersediaan kelas dan rincian materi perlu dikonfirmasi kepada pengelola cabang yang kamu pilih.'],
+ ['Bagaimana cara mengetahui jadwal dan biaya?','Jadwal kelas AK8 cabang Nunukan tersedia pada bagian Jadwal di website ini. Untuk biaya, kuota, dan perubahan jadwal, silakan konfirmasi kepada pengelola cabang yang kamu pilih.'],
  ['Apakah ada jaminan lolos seleksi?','Tidak ada jaminan kelulusan. Hasil seleksi mengikuti kemampuan peserta dan ketentuan instansi penyelenggara. Bimbingan membantu proses persiapan belajar.'],
  ['Apa yang perlu disiapkan sebelum mendaftar?','Tentukan tujuan seleksi dan siapkan informasi pendidikan terakhir. Persyaratan pendaftaran bimbingan dapat dikonfirmasi kepada pengelola.']
 ];

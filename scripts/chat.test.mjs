@@ -38,7 +38,7 @@ test('schedule answers come from the current shared knowledge',()=>{
  for(const phrase of ['Pelajaran apa yang dipelajari','Materi apa saja?','Mapelnya apa?','Apa yang diajarkan?']){const answer=getDemoReply(phrase);for(const name of ['Psiko','Matematika','Bahasa Inggris','Samjas'])assert.ok(answer.includes(name),phrase);}
  assert.match(renderReply(choice('subjects',{programId:'tni'})),/Persiapan akademik/);assert.match(getDemoReply('Materi cabang Tarakan apa?'),/Tarakan.*belum tersedia/);
  const reply=renderReply(choice('schedule',{subject:'Matematika',branchId:'nunukan'}));assert.match(reply,/Senin 19.30, Rabu 19.30 WITA/);assert.ok(!reply.includes('Psiko'));
- assert.equal(renderReply(choice('faq',{faqId:'faq-0'})),knowledge.faqs[0].answer);assert.ok(renderReply(choice('registration')).includes('\n'));assert.ok(!renderReply(choice('registration')).includes('\\n'));
+ assert.equal(renderReply(choice('faq',{faqId:'faq-0'})),knowledge.faqs[0].answer);for(const name of ['Tarakan','Nunukan','Tanjung Selor'])assert.ok(renderReply(choice('locations')).includes(name));assert.ok(!renderReply(choice('locations')).includes('berfokus pada Nunukan'));assert.ok(renderReply(choice('registration')).includes('\n'));assert.ok(!renderReply(choice('registration')).includes('\\n'));
 });
 test('out-of-scope questions get redirected rather than general answers',async()=>{
  const response=await invoke(createChatHandler({env:enabled,limiter:async()=>true,fetchImpl:async()=>provider(choice('out_of_scope'))}),{body:{message:'Buatkan kode game',history:[]}});

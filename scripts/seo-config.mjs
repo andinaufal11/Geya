@@ -1,7 +1,8 @@
+import {branches} from '../src/content.js';
 export const seo = {
- name:'Geya Nawasena Nunukan',
- title:'Geya Nawasena Nunukan | Bimbel Kedinasan, TNI & Polri',
- description:'Bimbel persiapan Sekolah Kedinasan, TNI, dan Polri di Nunukan, Kalimantan Utara. Kenali program, jadwal kelas AK8, dan konsultasi melalui WhatsApp.',
+ name:'Geya Nawasena',
+ title:'Geya Nawasena | Bimbel Kedinasan, TNI & Polri',
+ description:'Bimbel persiapan Sekolah Kedinasan, TNI, dan Polri di Tarakan, Nunukan, dan Tanjung Selor. Temukan cabang, program, jadwal kelas, dan konsultasi Geya.',
  defaultUrl:'https://geya.vercel.app/'
 };
 export function resolveSiteUrl(value=seo.defaultUrl){
@@ -11,7 +12,7 @@ export function resolveSiteUrl(value=seo.defaultUrl){
 }
 export function structuredData(siteUrl,contact){
  return {'@context':'https://schema.org','@graph':[
-  {'@type':'EducationalOrganization','@id':siteUrl+'#organization',name:seo.name,description:seo.description,url:siteUrl,logo:siteUrl+'assets/logo.jpeg',telephone:'+'+contact.whatsapp,...(contact.instagram?{sameAs:[contact.instagram]}:{}),areaServed:{'@type':'AdministrativeArea',name:'Nunukan, Kalimantan Utara, Indonesia'},contactPoint:{'@type':'ContactPoint',telephone:'+'+contact.whatsapp,contactType:'Informasi program dan pendaftaran',availableLanguage:'Indonesian',url:'https://wa.me/'+contact.whatsapp},...(contact.address?{address:{'@type':'PostalAddress',streetAddress:contact.address,addressLocality:'Nunukan',addressRegion:'Kalimantan Utara',addressCountry:'ID'}}:{})},
+  {'@type':'EducationalOrganization','@id':siteUrl+'#organization',name:seo.name,description:seo.description,url:siteUrl,logo:siteUrl+'assets/logo.jpeg',telephone:'+'+contact.whatsapp,...(contact.instagram?{sameAs:[contact.instagram]}:{}),areaServed:branches.map(branch=>({'@type':'AdministrativeArea',name:branch.name+', Kalimantan Utara, Indonesia'})),contactPoint:{'@type':'ContactPoint',telephone:'+'+contact.whatsapp,contactType:'Informasi program dan pendaftaran',availableLanguage:'Indonesian',url:'https://wa.me/'+contact.whatsapp}},
   {'@type':'WebSite','@id':siteUrl+'#website',url:siteUrl,name:seo.name,inLanguage:'id-ID',publisher:{'@id':siteUrl+'#organization'}},
   {'@type':'WebPage','@id':siteUrl+'#webpage',url:siteUrl,name:seo.title,description:seo.description,inLanguage:'id-ID',isPartOf:{'@id':siteUrl+'#website'},about:{'@id':siteUrl+'#organization'}}
  ]};

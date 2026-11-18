@@ -26,7 +26,7 @@ const head=`
 <meta property="og:description" content="${escape(seo.description)}"/>
 <meta property="og:url" content="${escape(siteUrl)}"/>
 <meta property="og:image" content="${escape(image)}"/>
-<meta property="og:image:alt" content="Logo Geya Nawasena Nunukan"/>
+<meta property="og:image:alt" content="Logo Geya Nawasena"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="${escape(seo.title)}"/>
 <meta name="twitter:description" content="${escape(seo.description)}"/>

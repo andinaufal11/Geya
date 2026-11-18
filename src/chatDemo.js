@@ -24,7 +24,7 @@ export function getDemoReply(message){
  }
  const program=programs.find(program=>text.includes(program.id)||text.includes(program.name.toLowerCase()));
  if(program)return program.name+': '+program.description+'\nGambaran persiapan: '+program.subjects.join(', ')+'. Rincian materi dan ketersediaan kelas perlu dikonfirmasi kepada admin.';
- if(/program|kelas|bimbel|belajar/.test(text))return 'Geya Nawasena Nunukan memperkenalkan persiapan Sekolah Kedinasan, TNI, dan Polri. Kamu tertarik jalur yang mana? Ketik nama programnya untuk melihat gambaran persiapannya.';
+ if(/program|kelas|bimbel|belajar/.test(text))return 'Geya Nawasena memperkenalkan persiapan Sekolah Kedinasan, TNI, dan Polri. Kamu tertarik jalur yang mana? Ketik nama programnya untuk melihat gambaran persiapannya.';
  if(/^(halo|hai|hi|pagi|siang|sore|malam)\b/.test(text))return 'Halo! Mau tahu program persiapan, jadwal kelas AK8, atau cara daftar? Pilih pertanyaan di bawah atau ketik pertanyaanmu.';
- return 'Aku khusus membantu informasi Geya: program, jadwal AK8 Nunukan, lokasi cabang, biaya, dan pendaftaran. Untuk rincian yang belum tersedia, silakan hubungi admin WhatsApp.';
+ return 'Aku khusus membantu informasi Geya: program, jadwal kelas, lokasi cabang, biaya, dan pendaftaran. Untuk rincian yang belum tersedia, silakan hubungi admin WhatsApp.';
 }

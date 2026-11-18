@@ -1,4 +1,4 @@
-# Geya Nawasena Nunukan
+# Geya Nawasena
 
 Website React + Vite untuk informasi bimbel persiapan Kedinasan, TNI, dan Polri. Domain aktif: https://geya.vercel.app/.
 
@@ -22,7 +22,7 @@ Setelah deploy:
 1. Verifikasi kepemilikan domain di Google Search Console dan Bing Webmaster Tools melalui akun pemilik.
 2. Kirim URL `https://geya.vercel.app/sitemap.xml` (sesuaikan jika domain berubah).
 3. Periksa URL utama melalui URL Inspection, lalu ajukan pengindeksan jika diperlukan.
-4. Lengkapi Google Business Profile cabang Nunukan dengan data nyata dan konsisten.
+4. Lengkapi Google Business Profile masing-masing cabang dengan data nyata dan konsisten.
 5. Jika mengganti domain, arahkan domain lama ke domain utama dengan redirect permanen di hosting.
 
 Verifikasi akun dan pengajuan pengindeksan tidak dilakukan oleh kode website. SEO tidak menjamin posisi pertama atau waktu pengindeksan. Halaman yang belum ada tidak ditambahkan ke sitemap. Tidak ada meta keywords atau schema FAQ untuk menjanjikan rich result.
@@ -81,3 +81,5 @@ Backend mengirim pertanyaan dan maksimal enam pertanyaan pengguna sebelumnya (ma
 
 Tes backend memakai respons Gemini/Redis tiruan; tes UI memakai backend FAQ lokal atau respons AI tiruan. Tanpa kredensial, tes tidak membuktikan akses model, kuota akun, maupun koneksi Redis produksi. Setelah memasang environment, lakukan smoke test live. Hasil HTTP gagal, kuota penuh, JSON model tidak valid, atau timeout beralih ke informasi dasar dan admin. API key dan endpoint provider diperiksa agar tidak masuk bundle publik.
 Log server chat hanya mencatat kategori error tetap (contoh invalid_limiter_url, limiter_permission, provider_429) tanpa nilai kredensial atau isi pesan. Jika invalid_limiter_url, isi UPSTASH_REDIS_REST_URL dengan nilai HTTPS pada bagian REST API database Upstash, lalu redeploy. Secret Production tidak dapat ditarik melalui CLI; pembaruan nilainya dilakukan oleh pemilik akun.
+
+Identitas website mewakili seluruh cabang Geya: Tarakan, Nunukan, dan Tanjung Selor. Jadwal serta materi kelas AK8 yang sudah dipublikasikan tetap diberi label Nunukan; tidak diasumsikan berlaku pada semua cabang. Data alamat contact.address dipertahankan hanya sebagai fallback lokasi Nunukan, bukan alamat seluruh organisasi.

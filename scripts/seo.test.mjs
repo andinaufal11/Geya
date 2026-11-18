@@ -21,13 +21,13 @@ test('canonical, social metadata, sitemap and robots agree',async()=>{
  assert.match(html,/name="robots" content="index,follow,max-image-preview:large"/);
  assert.ok((await readFile('dist/sitemap.xml','utf8')).includes(`<loc>${origin}</loc>`));
  assert.ok((await readFile('dist/robots.txt','utf8')).includes(`Sitemap: ${origin}sitemap.xml`));
- assert.ok(html.includes('Geya Nawasena Nunukan | Bimbel Kedinasan, TNI &amp; Polri'));
+ assert.ok(html.includes('Geya Nawasena | Bimbel Kedinasan, TNI &amp; Polri'));
 });
 test('structured data uses real business information',()=>{
  const json=JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
  const organization=json['@graph'].find(item=>item['@type']==='EducationalOrganization');
  assert.equal(organization.telephone,'+'+contact.whatsapp);assert.equal(organization.url,origin);
- assert.equal(organization.name,seo.name);assert.deepEqual(organization.sameAs,[contact.instagram]);assert.equal(organization.aggregateRating,undefined);
+ assert.equal(organization.name,seo.name);assert.deepEqual(organization.areaServed.map(area=>area.name),['Tarakan, Kalimantan Utara, Indonesia','Nunukan, Kalimantan Utara, Indonesia','Tanjung Selor, Kalimantan Utara, Indonesia']);assert.deepEqual(organization.sameAs,[contact.instagram]);assert.equal(organization.aggregateRating,undefined);
  if(!contact.address)assert.equal(organization.address,undefined);
  assert.equal(json['@graph'].length,3);
 });

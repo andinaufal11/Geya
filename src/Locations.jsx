@@ -3,7 +3,7 @@ import {MapPin,ArrowUpRight,MessageCircle,Navigation} from 'lucide-react';
 import {branches,contact,getBranchMapUrl} from './content';
 export default function Locations(){
  return <section className="locations-section section" id="lokasi" aria-labelledby="locations-title"><div className="wrap">
-  <div className="section-heading"><div><div className="eyebrow">DEKAT DENGAN LANGKAHMU</div><h2 id="locations-title">Tiga kota.<br/><em>Satu semangat Geya.</em></h2></div><p>Temukan cabang yang dekat denganmu.<br/>Mulai persiapan dari kotamu sendiri.</p></div>
+  <div className="section-heading"><div><div className="eyebrow">DEKAT DENGAN LANGKAHMU</div><h2 id="locations-title">Temukan Geya<br/><em>di kotamu.</em></h2></div><p>Temukan cabang yang dekat denganmu.<br/>Mulai persiapan dari kotamu sendiri.</p></div>
   <div className="locations-grid">{branches.map((branch,index)=>{
    const address=branch.address||(branch.id==='nunukan'?contact.address:'');
    const mapUrl=branch.mapUrl||(branch.id==='nunukan'?contact.mapUrl:'');

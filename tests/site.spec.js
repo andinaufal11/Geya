@@ -191,6 +191,7 @@ test('quota and offline failures retain FAQ and admin access',async({page})=>{
 });
 test('fallback distinguishes branch schedules and refuses unsupported topics',async({page})=>{
  await goto(page);await page.getByRole('button',{name:'Tanya Geya'}).click();const input=page.locator('#chat-question');
+ await input.fill('Pelajaran apa yang dipelajari');await input.press('Enter');await expect(page.locator('.chat-message.assistant').last()).toContainText('Matematika');await expect(page.locator('.chat-message.assistant').last()).toContainText('Bahasa Inggris');
  await input.fill('Jadwal cabang Tarakan');await input.press('Enter');await expect(page.locator('.chat-message.assistant').last()).toContainText('Tarakan belum tersedia');
  await input.fill('Tuliskan kode aplikasi');await input.press('Enter');await expect(page.locator('.chat-message.assistant').last()).toContainText('khusus membantu informasi Geya');
 });

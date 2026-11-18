@@ -1,5 +1,6 @@
+import {describeSubjects} from '../src/learningInfo.js';
 import {branches,contact,faqs,programs,schedule} from '../src/content.js';
-export const TOPICS=['programs','schedule','fees','registration','locations','contact','guarantee','greeting','faq','out_of_scope','unknown'];
+export const TOPICS=['programs','subjects','schedule','fees','registration','locations','contact','guarantee','greeting','faq','out_of_scope','unknown'];
 export const knowledge={
  organization:'Geya Nawasena',websiteFocus:'Nunukan',programs,branches:branches.map(({id,name,address,mapUrl})=>({id,name,address:address||(id==='nunukan'?contact.address:''),mapUrl:mapUrl||(id==='nunukan'?contact.mapUrl:'')})),
  schedule:{branch:'nunukan',class:'AK8',timezone:'WITA',subjects:schedule},faqs:faqs.map(([question,answer],index)=>({id:'faq-'+index,question,answer})),
@@ -10,6 +11,7 @@ export function renderReply(selection){
  const branch=branches.find(b=>b.id===selection.branchId);const program=programs.find(p=>p.id===selection.programId);
  switch(selection.topic){
   case 'fees':if(branch&&typeof knowledge.fees?.[branch.id]==='string')return 'Informasi biaya cabang '+branch.name+': '+knowledge.fees[branch.id];return 'Informasi biaya dan metode pembayaran'+(branch?' cabang '+branch.name:'')+' belum tersedia di website. Tanyakan kepada admin WhatsApp untuk rincian terbaru.';
+  case 'subjects':return describeSubjects(selection);
   case 'schedule':{
    if(branch&&branch.id!=='nunukan')return 'Jadwal yang dipublikasikan di website ini adalah kelas AK8 cabang Nunukan. Jadwal cabang '+branch.name+' belum tersedia. Hubungi admin untuk konfirmasi kelas dan waktunya.';
    const subjects=schedule.filter(s=>!selection.subject||s.name===selection.subject);

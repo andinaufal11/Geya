@@ -1,5 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {Readable} from 'node:stream';import {readFile,readdir} from 'node:fs/promises';
-import {createChatHandler,aiConfigured} from '../server/chat.js';import {createLimiter} from '../server/limits.js';import {renderReply,knowledge,validSelection} from '../server/knowledge.js';
+import {createChatHandler,aiConfigured} from '../server/chat.js';import {createLimiter} from '../server/limits.js';import {getDemoReply} from '../src/chatDemo.js';
+import {renderReply,knowledge,validSelection} from '../server/knowledge.js';
 const enabled={CHAT_AI_ENABLED:'true',GEMINI_API_KEY:'test-server-secret',NODE_ENV:'test'};
 const choice=(topic='programs',extra={})=>({topic,programId:null,branchId:null,subject:null,faqId:null,...extra});
 const provider=selection=>new Response(JSON.stringify({candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify(selection)}]}}]}),{status:200,headers:{'Content-Type':'application/json'}});
@@ -34,6 +35,8 @@ test('unknown fees and remote branch schedules are never invented',()=>{
  assert.match(renderReply(choice('locations',{branchId:'tanjung-selor'})),/belum dikonfirmasi/);
 });
 test('schedule answers come from the current shared knowledge',()=>{
+ for(const phrase of ['Pelajaran apa yang dipelajari','Materi apa saja?','Mapelnya apa?','Apa yang diajarkan?']){const answer=getDemoReply(phrase);for(const name of ['Psiko','Matematika','Bahasa Inggris','Samjas'])assert.ok(answer.includes(name),phrase);}
+ assert.match(renderReply(choice('subjects',{programId:'tni'})),/Persiapan akademik/);assert.match(getDemoReply('Materi cabang Tarakan apa?'),/Tarakan.*belum tersedia/);
  const reply=renderReply(choice('schedule',{subject:'Matematika',branchId:'nunukan'}));assert.match(reply,/Senin 19.30, Rabu 19.30 WITA/);assert.ok(!reply.includes('Psiko'));
  assert.equal(renderReply(choice('faq',{faqId:'faq-0'})),knowledge.faqs[0].answer);assert.ok(renderReply(choice('registration')).includes('\n'));assert.ok(!renderReply(choice('registration')).includes('\\n'));
 });

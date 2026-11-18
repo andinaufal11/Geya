@@ -1,3 +1,4 @@
+import {describeSubjects} from './learningInfo.js';
 import {contact,programs,schedule,branches} from './content.js';
 export const suggestions=['Program apa saja?','Lihat jadwal kelas','Berapa biaya bimbel?','Bagaimana cara daftar?'];
 export function getDemoReply(message){
@@ -5,6 +6,11 @@ export function getDemoReply(message){
  const branch=branches.find(branch=>text.includes(branch.name.toLowerCase())||(branch.id==='tanjung-selor'&&text.includes('tanjungselor')));
  if(/biaya|harga|bayar|tarif|diskon/.test(text))return 'Informasi biaya dan metode pembayaran belum tersedia di website. Yuk, tanyakan langsung ke admin WhatsApp agar mendapatkan rincian terbaru.';
  if(/jamin|pasti.*(lolos|lulus)|garansi/.test(text))return 'Tidak ada jaminan kelulusan. Geya membantu persiapan belajar; hasil seleksi mengikuti kemampuan peserta dan ketentuan instansi penyelenggara.';
+ if(/pelajaran|materi|mapel|mata\s*pelajaran|dipelajari|diajarkan/.test(text)&&!/jadwal|jam berapa|hari apa|kapan/.test(text)){
+  const program=programs.find(p=>text.includes(p.id)||(p.id==='tni'&&/tentara/.test(text))||(p.id==='polri'&&/polisi/.test(text)));
+  const subject=schedule.find(item=>text.includes(item.name.toLowerCase()));
+  return describeSubjects({programId:program?.id,branchId:branch?.id,subject:subject?.name});
+ }
  if(/jadwal|jam|hari|kapan|matematika|inggris|psiko|samjas/.test(text)){
   if(branch&&branch.id!=='nunukan')return 'Jadwal yang dipublikasikan di website ini adalah kelas AK8 cabang Nunukan. Jadwal cabang '+branch.name+' belum tersedia. Hubungi admin untuk konfirmasi kelas dan waktunya.';
   const filtered=schedule.filter(subject=>text.includes(subject.name.toLowerCase()));

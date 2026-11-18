@@ -47,5 +47,5 @@ test('site configuration supports future domain and rejects invalid origins',()=
 test('initial HTML uses lazy gallery and reserves logo size',()=>{
  assert.match(html,/<img[^>]+width="267"[^>]+height="267"/);
  for(const match of html.matchAll(/<img[^>]+src="https:\/\/images.pexels.com[^>]+>/g))assert.match(match[0],/loading="lazy"/);
- assert.ok(html.includes('DEMO')||html.includes('Demo AI'));
+ assert.ok(html.includes('Tanya Geya'));assert.ok(!html.includes('Demo AI'));
 });

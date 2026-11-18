@@ -163,3 +163,34 @@ test('branch locations provide city photos, Maps search and contextual WhatsApp 
   });expect(layout).toEqual({overflow:false,outside:false,headerFits:true});}
  }
 });
+test('AI chat shows pending state, prevents duplicates and sends bounded user context',async({page})=>{
+ let release;let calls=0;const requests=[];
+ await page.route('**/api/chat',async route=>{
+  if(route.request().method()==='GET')return route.fulfill({json:{mode:'ai'}});
+  calls++;requests.push(route.request().postDataJSON());
+  if(calls===1)await new Promise(resolve=>{release=resolve;});
+  return route.fulfill({json:{reply:calls===1?'Informasi resmi persiapan TNI.':'Jadwal AK8 cabang Nunukan tersedia di website.',source:'ai'}});
+ });
+ await goto(page);await page.getByRole('button',{name:'Tanya Geya'}).click();
+ const input=page.locator('#chat-question');await input.fill('Saya ingin masuk tentara');await input.press('Enter');
+ await expect(page.getByRole('status').filter({hasText:'Geya sedang memahami'})).toBeVisible();await expect(page.getByRole('button',{name:'Kirim pertanyaan'})).toBeDisabled();
+ await input.fill('jadwalnya?');await input.press('Enter');expect(calls).toBe(1);release();
+ await expect(page.locator('.chat-message.assistant').last()).toContainText('Informasi resmi persiapan TNI.');await expect(page.locator('.chat-message.assistant').last()).toContainText('Geya · AI');
+ await input.press('Enter');await expect(page.locator('.chat-message.assistant').last()).toContainText('Jadwal AK8');expect(calls).toBe(2);expect(requests[1].history).toEqual(['Saya ingin masuk tentara']);expect(requests[1].message).toBe('jadwalnya?');
+});
+test('quota and offline failures retain FAQ and admin access',async({page})=>{
+ let fail=false;
+ await page.route('**/api/chat',route=>{
+  if(route.request().method()==='GET')return route.fulfill({json:{mode:'ai'}});
+  return fail?route.abort():route.fulfill({json:{reply:'Informasi biaya belum tersedia. Hubungi admin WhatsApp.',source:'faq',reason:'limit'}});
+ });
+ await goto(page);await page.getByRole('button',{name:'Tanya Geya'}).click();await page.getByRole('button',{name:'Berapa biaya bimbel?'}).click();
+ await expect(page.locator('.chat-notice')).toContainText('Batas layanan AI');await expect(page.locator('.chat-message.assistant').last()).toContainText('Geya · Info');
+ fail=true;await page.locator('#chat-question').fill('Jadwal matematika');await page.locator('#chat-question').press('Enter');
+ await expect(page.locator('.chat-message.assistant').last()).toContainText('Senin 19.30, Rabu 19.30 WITA');await expect(page.locator('.chat-notice')).toContainText('tidak tersedia');await expect(page.getByRole('link',{name:'Hubungi admin melalui WhatsApp'})).toBeVisible();
+});
+test('fallback distinguishes branch schedules and refuses unsupported topics',async({page})=>{
+ await goto(page);await page.getByRole('button',{name:'Tanya Geya'}).click();const input=page.locator('#chat-question');
+ await input.fill('Jadwal cabang Tarakan');await input.press('Enter');await expect(page.locator('.chat-message.assistant').last()).toContainText('Tarakan belum tersedia');
+ await input.fill('Tuliskan kode aplikasi');await input.press('Enter');await expect(page.locator('.chat-message.assistant').last()).toContainText('khusus membantu informasi Geya');
+});

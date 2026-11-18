@@ -278,3 +278,7 @@ footer.site-footer{display:block;width:100%;padding:0;background:#fcf8f3;border-
 [data-theme='dark'] .location-focus{background:#3a2e1c;color:#f0cc83;border-color:#71552c}
 [data-theme='dark'] .location-address{border-color:var(--border);color:#e3be73}
 [data-theme='dark'] .location-number{color:#e3be73}
+.chat-pending{font-size:13px;line-height:1.6;margin:0;color:var(--muted)}
+.chat-notice{font-size:12px;line-height:1.7;margin:0;padding:10px;border-left:2px solid #c39a3f;background:#fff7e9;color:#7a6043}
+.chat-suggestions button:disabled{opacity:.55;cursor:wait}
+[data-theme='dark'] .chat-notice{background:#30271b;color:#e3c8a0}

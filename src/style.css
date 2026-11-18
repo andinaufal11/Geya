@@ -239,3 +239,42 @@ footer.site-footer{display:block;width:100%;padding:0;background:#fcf8f3;border-
  .program-detail-slot .program-detail p{max-width:78ch}
 }
 .footer-instagram{margin-top:10px}.footer-instagram small{font-size:12px;overflow-wrap:anywhere}
+
+/* Branch locations: local city photos, practical map and consultation actions. */
+.locations-section{background:#fffaf4;border-top:1px solid #eee0d6}
+.locations-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.location-card{min-width:0;display:flex;flex-direction:column;background:white;border:1px solid #e9dcd2}
+.location-photo{position:relative;margin:0;overflow:hidden;aspect-ratio:16/10;background:#e5dbce}
+.location-photo img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.location-card:hover .location-photo img{transform:scale(1.025)}
+.location-photo figcaption{position:absolute;bottom:12px;left:12px;right:12px;display:flex;align-items:center;gap:6px;font-size:11px;line-height:1.5;color:white;text-shadow:0 1px 4px #000}
+.location-photo:after{content:'';position:absolute;inset:50% 0 0;background:linear-gradient(transparent,#17120b8c);pointer-events:none}
+.location-photo figcaption{z-index:1}
+.location-content{display:flex;flex-direction:column;flex:1;padding:24px}
+.location-card-heading{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.location-number{font-size:12px;color:#a47d29}
+.location-card h3{font-family:'Libre Caslon Display',Georgia,serif;font-size:34px;font-weight:400;line-height:1.2;margin:0}
+.location-focus{font-size:10px;color:#946c1d;background:#fff4dc;border:1px solid #e9d2a1;padding:3px 6px}
+.location-region{font-size:12px;line-height:1.6;margin:10px 0 16px;color:#9a8070}
+.location-description{font-size:15px;line-height:1.8;margin:0 0 18px}
+.location-address{display:flex;align-items:flex-start;gap:8px;padding-top:16px;margin-top:auto;border-top:1px solid #eee0d6;color:#a47d29}
+.location-address svg{margin-top:4px}.location-address p{font-size:13px;line-height:1.7;margin:0}
+.location-actions{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.location-actions .button{font-size:14px;gap:10px;padding:13px 12px;min-height:48px}
+.location-actions .button>svg:last-child{margin-left:auto}
+.location-actions .text-link{font-size:13px;gap:8px;min-height:40px}
+.location-actions .text-link>svg:last-child{margin-left:auto}
+.locations-note{display:flex;align-items:flex-start;gap:10px;margin-top:24px;color:#a17b2a}
+.locations-note svg{margin-top:4px}.locations-note p{font-size:13px;line-height:1.8;margin:0;max-width:900px}
+.location-credits{margin-top:15px;color:var(--muted);font-size:12px}
+.location-credits summary{cursor:pointer;min-height:40px;padding:10px 0;width:fit-content}
+.location-credits a{text-decoration:underline;text-underline-offset:3px}.location-credits ul{padding-left:18px;line-height:1.9}.location-credits p{font-size:12px;line-height:1.8}
+@media(max-width:1000px) and (min-width:601px){.locations-grid{grid-template-columns:minmax(0,1fr)}.location-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}.location-photo{height:100%;aspect-ratio:auto;min-height:300px}.location-content{padding:24px}.location-actions{flex-direction:row;flex-wrap:wrap;align-items:center}.location-actions .button{flex:1;min-width:180px}.location-actions .text-link{flex:1;min-width:150px}}
+@media(max-width:600px){.locations-grid{grid-template-columns:minmax(0,1fr);gap:22px}.location-content{padding:22px}.location-card h3{font-size:32px}.location-photo{aspect-ratio:16/9}.locations-note p{font-size:12px}.location-actions .button{font-size:15px}.location-actions .text-link{font-size:14px}}
+[data-theme='dark'] .locations-section{background:#211b18;border-color:var(--border)}
+[data-theme='dark'] .location-card{background:var(--surface);border-color:var(--border)}
+[data-theme='dark'] .location-card h3{color:#eee6df}
+[data-theme='dark'] .location-region{color:#c0aa98}
+[data-theme='dark'] .location-focus{background:#3a2e1c;color:#f0cc83;border-color:#71552c}
+[data-theme='dark'] .location-address{border-color:var(--border);color:#e3be73}
+[data-theme='dark'] .location-number{color:#e3be73}

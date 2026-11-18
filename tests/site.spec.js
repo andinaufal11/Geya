@@ -141,3 +141,25 @@ test('explicit carousel Play works with pointer and keyboard focus on the contro
  await page.locator('.carousel-viewport').hover();await page.clock.fastForward(9000);await expect(page.locator('.photo-counter')).toContainText('03');
  await page.mouse.move(0,0);await page.clock.fastForward(4600);await expect(page.locator('.photo-counter')).toContainText('04');
 });
+test('branch locations provide city photos, Maps search and contextual WhatsApp links',async({page})=>{
+ await goto(page);await page.locator('#lokasi').scrollIntoViewIfNeeded();
+ await expect(page.locator('.location-card')).toHaveCount(3);
+ for(const city of ['Tarakan','Nunukan','Tanjung Selor']){
+  const card=page.getByRole('article',{name:city,exact:true});
+  const maps=card.getByRole('link',{name:'Cari Geya Nawasena '+city+' di Google Maps'});
+  const url=new URL(await maps.getAttribute('href'));expect(url.hostname).toBe('www.google.com');expect(url.searchParams.get('query')).toBe('Geya Nawasena '+city+' Kalimantan Utara');await expect(maps).toHaveAttribute('target','_blank');
+  const admin=card.getByRole('link',{name:'Tanya admin tentang cabang '+city});expect(new URL(await admin.getAttribute('href')).searchParams.get('text')).toContain('cabang '+city);
+  const img=card.locator('img');await img.evaluate(image=>image.decode());expect(await img.evaluate(image=>image.naturalWidth)).toBeGreaterThan(0);
+ }
+ await page.locator('.location-credits summary').click();await expect(page.locator('.location-credits ul')).toBeVisible();
+ for(const theme of ['light','dark']){
+  if(theme==='dark')await page.getByRole('switch',{name:'Mode gelap'}).click();
+  const widths=page.viewportSize().width>900?[768,1024,1120,1280,1440]:[page.viewportSize().width];
+  for(const width of widths){await page.setViewportSize({width,height:900});const layout=await page.evaluate(()=>{
+   const section=document.querySelector('#lokasi'),r=section.getBoundingClientRect();
+   const outside=[...section.querySelectorAll('*')].some(e=>{const b=e.getBoundingClientRect();return b.width>0&&(b.left<r.left-1||b.right>r.right+1);});
+   const nav=document.querySelector('header>nav'),n=nav.getBoundingClientRect(),brand=document.querySelector('header>.brand').getBoundingClientRect(),actions=document.querySelector('.header-actions').getBoundingClientRect();
+   return {overflow:document.documentElement.scrollWidth>innerWidth,outside,headerFits:getComputedStyle(nav).display==='none'||(n.left>=brand.right&&n.right<=actions.left)};
+  });expect(layout).toEqual({overflow:false,outside:false,headerFits:true});}
+ }
+});

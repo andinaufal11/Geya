@@ -40,7 +40,7 @@ Switch ikon bulan/matahari di header mengubah mode terang dan gelap. Pada kunjun
 
 ## Automation testing
 
-- `npm test`: build produksi, 6 pemeriksaan SEO, lalu 51 browser tests (17 alur pada desktop 1440px, HP 390px, dan HP kecil 320px).
+- `npm test`: build produksi, 6 pemeriksaan SEO, lalu 54 browser tests (18 alur pada desktop 1440px, HP 390px, dan HP kecil 320px).
 - `npm run test:e2e`: ulangi tes browser terhadap build `dist` yang sudah dibuat.
 - `npx playwright show-report`: buka laporan HTML setelah tes.
 - Windows memakai Microsoft Edge yang terpasang. Linux/CI memakai Chromium; jalankan `npx playwright install --with-deps chromium` saat menyiapkan environment Linux.
@@ -51,3 +51,9 @@ Foto Pexels dan font eksternal diganti respons lokal saat tes interaksi agar has
 
 Workflow `.github/workflows/test.yml` menjalankan suite setelah push ke main dan pada pull request, lalu menyimpan laporan HTML sebagai artifact GitHub Actions selama 14 hari.
 Autoplay carousel memakai interval 4,5 detik. Kursor pada area foto dan fokus pada kontrol lain menjeda sementara. Klik Play melanjutkan putaran meskipun fokus tetap di tombol Play. Reduced motion menonaktifkan autoplay awal; pengguna tetap dapat menyalakannya secara manual.
+
+## Lokasi cabang
+
+Bagian `#lokasi` menampilkan Tarakan, Nunukan, dan Tanjung Selor. Kelola `branches` di `src/content.js`: isi `address`, `mapUrl`, dan data `photo` sesuai data resmi. Sementara alamat dan pin belum tersedia, tombol membuka pencarian Google Maps berdasarkan nama Geya dan kotanya; ini bukan pin lokasi terverifikasi. Kontak Nunukan tetap bisa memakai fallback `contact.address` dan `contact.mapUrl` yang sudah ada.
+
+Foto saat ini adalah suasana kota, bukan gedung cabang. File lokal di `public/locations/` tidak masuk carousel kegiatan. Sumber dan lisensi: Tarakan skyline — Sekretariat Kabinet Indonesia (domain publik), Alun-Alun Kota Nunukan dan Taman Tepian Tanjung Selor — Ezagren (CC BY-SA 4.0). Tautan sumber, atribusi, lisensi dan keterangan pemotongan tersedia di kredit foto pada bagian lokasi. Mengganti foto dengan dokumentasi asli cabang dianjurkan saat tersedia. Tidak ada koordinat atau alamat cabang yang dikarang dalam data terstruktur SEO.

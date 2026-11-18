@@ -18,3 +18,10 @@ export const schedule = [
  {name:'Bahasa Inggris', description:'Bangun pemahaman bahasa dan kemampuan membaca.', sessions:[{day:'Minggu',time:'19.30'},{day:'Jumat',time:'19.30'}]},
  {name:'Samjas', description:'Persiapan kesamaptaan jasmani.', sessions:[{day:'Senin',time:'16.30'},{day:'Rabu',time:'16.30'},{day:'Jumat',time:'16.30'}]},
 ];
+
+export const branches = [
+ {id:'tarakan',name:'Tarakan',region:'Kota Tarakan, Kalimantan Utara',description:'Kenali pilihan persiapan dan ketersediaan kelas Geya di Tarakan.',address:'',mapUrl:'',photo:{src:'/locations/tarakan.png',alt:'Pemandangan Kota Tarakan',caption:'Suasana Kota Tarakan',title:'Tarakan skyline',author:'Sekretariat Kabinet Indonesia',source:'https://commons.wikimedia.org/wiki/File:Tarakan_skyline.png',license:'Domain publik',licenseUrl:'https://commons.wikimedia.org/wiki/File:Tarakan_skyline.png#Licensing'}},
+ {id:'nunukan',name:'Nunukan',region:'Kabupaten Nunukan, Kalimantan Utara',description:'Jelajahi program dan jadwal kelas AK8 yang tersedia di website ini.',address:'',mapUrl:'',photo:{src:'/locations/nunukan.jpg',alt:'Alun-alun Kota Nunukan di Kalimantan Utara',caption:'Alun-alun Kota Nunukan',title:'Alun-Alun Kota Nunukan',author:'Ezagren',source:'https://commons.wikimedia.org/wiki/File:Alun-Alun_Kota_Nunukan.JPG',license:'CC BY-SA 4.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/'}},
+ {id:'tanjung-selor',name:'Tanjung Selor',region:'Kabupaten Bulungan, Kalimantan Utara',description:'Tanyakan program dan informasi belajar Geya di Tanjung Selor.',address:'',mapUrl:'',photo:{src:'/locations/tanjung-selor.jpg',alt:'Taman tepian sungai di Tanjung Selor',caption:'Taman Tepian Tanjung Selor',title:'Taman Tepian Tanjung Selor',author:'Ezagren',source:'https://commons.wikimedia.org/wiki/File:Taman_Tepian_Tanjung_Selor.JPG',license:'CC BY-SA 4.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/4.0/'}}
+];
+export function getBranchMapUrl(branch){return branch.mapUrl||'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent('Geya Nawasena '+branch.name+' Kalimantan Utara');}

@@ -11,7 +11,7 @@ test('production HTML includes content before JavaScript runs',()=>{
  for(const program of programs)assert.ok(html.includes(program.description));
  for(const subject of schedule)assert.ok(html.includes(subject.description));
  for(const [question] of faqs)assert.ok(html.includes(question));
- for(const id of ['main-content','beranda','tentang','program','jadwal','galeri','faq','kontak'])assert.ok(html.includes(`id="${id}"`));
+ for(const id of ['main-content','beranda','tentang','program','jadwal','galeri','faq','lokasi','kontak'])assert.ok(html.includes(`id="${id}"`));
  assert.match(html,/https:\/\/wa.me\/62811547999/);
  assert.doesNotMatch(html,/<div id="root"><\/div>|undefined|NaN/);
 });

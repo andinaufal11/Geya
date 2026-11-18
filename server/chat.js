@@ -9,7 +9,7 @@ async function readBody(req){
  const chunks=[];let size=0;for await(const chunk of req){size+=Buffer.byteLength(chunk);if(size>10000)throw new Error('too_large');chunks.push(Buffer.from(chunk));}
  return JSON.parse(Buffer.concat(chunks).toString('utf8'));
 }
-export function createChatHandler({env=process.env,fetchImpl=fetch,limiter,now}={}){
+export function createChatHandler({env=process.env,fetchImpl=fetch,limiter,now,logError=code=>console.warn('[geya-chat] '+code)}={}){
  const consume=limiter||createLimiter({env,fetchImpl,now});
  return async function handler(req,res){
   res.setHeader('Cache-Control','no-store');res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('X-Content-Type-Options','nosniff');
@@ -29,6 +29,10 @@ export function createChatHandler({env=process.env,fetchImpl=fetch,limiter,now}=
    const ip=env.VERCEL?(req.headers['x-vercel-forwarded-for']||req.headers['x-forwarded-for']||'unknown').split(',')[0].trim():(req.socket?.remoteAddress||'local');
    if(!await consume(ip)){res.setHeader('Retry-After','600');return fallback('limit');}
    const selection=await classifyWithGemini({message,history,env,fetchImpl});return send(200,{reply:renderReply(selection),source:'ai'});
-  }catch{return fallback('unavailable');}
+  }catch(error){
+   const known=['limiter_unavailable','limiter_response','limiter_permission','limiter_unsupported_command','invalid_limiter_url','invalid_selection','invalid_model','incomplete_provider_response'];
+   const code=known.includes(error.message)||/^provider_\d{3}$/.test(error.message)?error.message:['AbortError','TimeoutError'].includes(error.name)?'timeout':'unexpected_error';
+   try{logError(code);}catch{}return fallback('unavailable');
+  }
  };
 }

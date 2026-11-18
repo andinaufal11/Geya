@@ -99,3 +99,7 @@ test('production limiter fails closed on unavailable or malformed shared storage
 test('server credentials and provider endpoint are absent from the public bundle',async()=>{
  for(const file of await readdir('dist/assets'))if(file.endsWith('.js')){const text=await readFile('dist/assets/'+file,'utf8');for(const forbidden of ['GEMINI_API_KEY','UPSTASH_REDIS_REST_TOKEN','generativelanguage.googleapis.com','test-server-secret'])assert.ok(!text.includes(forbidden),forbidden+' leaked into '+file);}
 });
+test('operational diagnostics log only fixed error codes and never provider secrets',async()=>{
+ const logs=[];const handler=createChatHandler({env:enabled,limiter:async()=>{throw new Error('sensitive credential: never print this');},logError:code=>logs.push(code)});
+ const response=await invoke(handler);assert.equal(response.body.source,'faq');assert.deepEqual(logs,['unexpected_error']);
+});
